@@ -15,7 +15,9 @@ repeatability were my main priorities.
 
 ## License
 
-Eclipse Public License
+Eclipse Public License, except for bash/install-meteor.sh which is MIT license as per 
+https://github.com/meteor/meteor/blob/devel/LICENSE.txt
+
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
