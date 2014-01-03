@@ -9,6 +9,11 @@ plugins for same. We have to sort of wing it and roll our own. I'm
 quite certain the Puppet code is non-idiomatic, but expediency +
 repeatability were my main priorities.
 
+To pick up required puppet Python submodule:
+
+* `git submodule init`
+* `git submodule update`
+
 ## Author
 
 [John Jacobsen](http://eigenhombre.com)

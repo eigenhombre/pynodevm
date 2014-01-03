@@ -18,6 +18,16 @@ package { 'git': ensure => installed }
 
 package { 'libzmq-dev': ensure => installed }
 
+# Python
+
+exec { "python-virtualenv":
+  require => Package["python-virtualenv"],
+  command => "/usr/bin/virtualenv /home/vagrant/env",
+  creates => ["/home/vagrant/env"],
+  user => "vagrant",
+}
+
+
 # MongoDB
 
 package { 'mongodb': ensure => installed }
@@ -48,6 +58,7 @@ exec { "get-node-tarball":
     path => ["/usr/bin", "/bin"],
     command => "wget ${node_url} && tar xzf ${node_tarball}",
     creates => $node_dir,
+    require => Package["wget"]
 } ->
 exec { "build-node":
     cwd => $node_dir,
