@@ -8,25 +8,17 @@ package { "curl": ensure => installed }
 
 package { 'wget': ensure => installed }
 
-package { 'python-virtualenv': ensure => installed }
-
-package { 'python-dev': ensure => installed }
-
 package { 'gcc': ensure => installed }
 
 package { 'git': ensure => installed }
 
 package { 'libzmq-dev': ensure => installed }
 
-# Python
+package { 'postgresql': ensure => installed }
 
-exec { "python-virtualenv":
-  require => Package["python-virtualenv"],
-  command => "/usr/bin/virtualenv /home/vagrant/env",
-  creates => ["/home/vagrant/env"],
-  user => "vagrant",
-}
-
+package { 'mysql-server': ensure => installed }
+package { 'mysql-client': ensure => installed }
+package { 'libmysqlclient-dev': ensure => installed }
 
 # MongoDB
 
@@ -96,3 +88,37 @@ exec { "install-meteor":
 # Then,
 #   mrt
 # You should get a nice dump of info associated w/ the ZeroMQ object.
+
+
+# Python
+
+# package { 'python-virtualenv': ensure => installed }
+# package { 'python-dev': ensure => installed }
+#
+# exec { "python-virtualenv":
+#   require => Package["python-virtualenv"],
+#   command => "/usr/bin/virtualenv /home/vagrant/env",
+#   creates => ["/home/vagrant/env"],
+#   user => "vagrant",
+# }
+
+import 'python'
+
+class { 'python':
+  version    => 'system',
+  dev        => true,
+  virtualenv => true,
+  pip        => true,
+}
+
+python::virtualenv { '/home/vagrant/env':
+  ensure       => present,
+  version      => 'system',
+  systempkgs   => true,
+  distribute   => false,
+  owner        => 'vagrant',
+  group        => 'admin',
+  cwd          => '/tmp',
+}
+
+# python::pip { 'toolz': virtualenv => '/home/vagrant/env', owner => 'vagrant' }
